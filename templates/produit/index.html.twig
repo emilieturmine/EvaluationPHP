@@ -4,46 +4,49 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Liste des produits</h1>
+	<div class="container">
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Photo</th>
-				<th>Categorie</th>
-				<th>Id</th>
-				<th>Reference</th>
-				<th>Libelle</th>
-				<th>Description</th>
-				<th>Prix</th>
-				<th>Stock</th>
-				<th>Couleur</th>
-				<th>DateAjout</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for produit in produits %}
+		<h1>Liste des produits</h1>
+
+		<table class="table">
+			<thead>
 				<tr>
-					<td>{{ produit.Photo }}</td>
-					<td>{{ produit.Categorie }}</td>
-					<td>{{ produit.id }}</td>
-					<td>{{ produit.reference }}</td>
-					<td>{{ produit.libelle }}</td>
-					<td>{{ produit.description }}</td>
-					<td>{{ produit.prix }}</td>
-					<td>{{ produit.stock }}</td>
-					<td>{{ produit.couleur }}</td>
-					<td>{{ produit.DateAjout ? produit.DateAjout|date('d-m-Y H:i') : '' }}</td>
-					<td>
-						<a href="{{ path('produit_show', {'id': produit.id}) }}">Details</a>
-						<a href="{{ path('produit_edit', {'id': produit.id}) }}">Modifier</a>
-					</td>
+					<th>Photo</th>
+					<th>Categorie</th>
+					<th>Id</th>
+					<th>Reference</th>
+					<th>Libelle</th>
+					<th>Description</th>
+					<th>Prix</th>
+					<th>Stock</th>
+					<th>Couleur</th>
+					<th>DateAjout</th>
+					<th>actions</th>
 				</tr>
-			{% else %}
-				<tr>
-					<td colspan="11">Pas d'enregistrement trouvé</td>
-				</tr>
+			</thead>
+			<tbody>
+				{% for produit in produits %}
+					<tr>
+						<td>{{ produit.Photo }}</td>
+						<td>{{ produit.Categorie }}</td>
+						<td>{{ produit.id }}</td>
+						<td>{{ produit.reference }}</td>
+						<td>{{ produit.libelle }}</td>
+						<td>{{ produit.description }}</td>
+						<td>{{ produit.prix }}</td>
+						<td>{{ produit.stock }}</td>
+						<td>{{ produit.couleur }}</td>
+						<td>{{ produit.DateAjout ? produit.DateAjout|date('d-m-Y H:i') : '' }}</td>
+						<td>
+							<a href="{{ path('produit_show', {'id': produit.id}) }}">Details</a>
+							<a href="{{ path('produit_edit', {'id': produit.id}) }}">Modifier</a>
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="11">Pas d'enregistrement trouvé</td>
+					</tr>
+				</div>
 			{% endfor %}
 		</tbody>
 	</table>

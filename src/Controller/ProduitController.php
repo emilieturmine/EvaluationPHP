@@ -12,6 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Controller\DateTimeInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Form\FormInterface;
+use Doctrine\Persistence\ObjectManager;
 
 /**
  * @Route("/produit")
@@ -57,9 +58,9 @@ class ProduitController extends AbstractController
                 }
             }
             $produit->getDateAjout(new \DateTimeInterface);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($produit);
-            $entityManager->flush();
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($produit);
+            $manager->flush();
             $this->addFlash(
                 'success',
                 'Produit ajouté avec succès !!'
