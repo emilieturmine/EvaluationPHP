@@ -13,6 +13,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Validator\Constraints\Regex;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\DomCrawler\Image;
+
+
 
 class ProduitType extends AbstractType
 {
@@ -74,14 +78,18 @@ class ProduitType extends AbstractType
                     'help' => 'Vous devez rentrer la couleur du produit ici',
                 ]
             ])
-            ->add('Photo', TextType::class, [
-                'attr' => ['placeholder' => 'Photo du produit'], 'constraints' => [
-                    new Regex([
-                        'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\_\-\s]+$/',
-                        'message' => 'Caratère(s) non valide(s)'
-                    ]),
-                    'help' => 'Vous devez rentrer la photo du produit ici',
-                ]
+            ->add('Photo2', FileType::class, [
+                'label' => 'Photo du produit',
+                //unmapped => fichier non associé à aucune propriété d'entité, validation impossible avec les annotations
+                'mapped' => false,
+                'required' => false,
+                //'constraints' => [
+                // new Image([
+                // 'maxSize' => '2000k',
+
+                //'mimeTypesMessage' => 'Veuillez insérer une photo au format jpg, jpeg ou png'
+                // ])
+                // ]
             ])
             ->add('Categorie', TextType::class, [
                 'attr' => ['placeholder' => 'Categorie du produit'], 'constraints' => [
