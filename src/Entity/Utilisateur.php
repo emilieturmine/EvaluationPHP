@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\UtilisateurRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Validator\Test\AssertingContextualValidator;
 use Symfony\Component\validator\Constraints as Assert;
 use Symfony\Component\validator\Constraints\EqualTo;
 use Symfony\Component\PropertyAccess\PropertyPath;
@@ -23,20 +22,18 @@ class Utilisateur
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255) 
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\EqualTo(propertyPath="confirm_mdp")
      */
     private $mdp;
 
     public $confirm_mdp;
     /**
      * @ORM\Column(type="string", length=255)
-     
      */
 
     private $role;

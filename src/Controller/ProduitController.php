@@ -9,10 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Controller\DateTimeInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\Form\FormInterface;
-use Doctrine\Persistence\ObjectManager;
 
 /**
  * @Route("/produit")
@@ -35,29 +32,30 @@ class ProduitController extends AbstractController
     public function new(Request $request): Response
     {
         $produit = new Produit();
+        // $produit->setDateAjout(new \DateTimeInterface);
         $form = $this->createForm(ProduitType::class, $produit);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $produitFile = $form['photo2']->getPhoto();
-            // vérification s'il y a un upload photo
-            if ($produitFile) {
-                // renommage du fichier
-                // nom du fichier + extension
-                $newPhoto = $produit . '.' . $produitFile->guessExtension();
-                // assignation de la valeur à la propriété picture à l'aide du setter
-                $produit->setPhoto($newPhoto);
-                try {
-                    // déplacement du fichier vers le répertoire de destination sur le serveur
-                    $produitFile->move(
-                        $this->getParameter('photo_directory'),
-                        $newPhoto
-                    );
-                } catch (FileException $e) {
-                    // gestion de l'erreur si le déplacement ne s'est pas effectué
-                }
-            }
-            $produit->getDateAjout(new \DateTimeInterface);
+            // $produitFile = $form['photo2']->getPhoto();
+            // // vérification s'il y a un upload photo
+            // if ($produitFile) {
+            //     // renommage du fichier
+            //     // nom du fichier + extension
+            //     $newPhoto = $produit . '.' . $produitFile->guessExtension();
+            //     // assignation de la valeur à la propriété picture à l'aide du setter
+            //     $produit->setPhoto($newPhoto);
+            //     try {
+            //         // déplacement du fichier vers le répertoire de destination sur le serveur
+            //         $produitFile->move(
+            //             $this->getParameter('photo_directory'),
+            //             $newPhoto
+            //         );
+            //     } catch (FileException $e) {
+            //         // gestion de l'erreur si le déplacement ne s'est pas effectué
+            //     }
+            // }
+            // $produit->getDateAjout(new \DateTimeInterface);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($produit);
             $manager->flush();
@@ -93,23 +91,23 @@ class ProduitController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $produitFile = $form['photo2']->setPhoto();
-            if ($produitFile) {
-                // renommage du fichier
-                // nom du fichier + extension
-                $newPhoto = $produit . '.' . $produitFile->guessExtension();
-                // assignation de la valeur à la propriété picture à l'aide du setter
-                $produit->setPhoto($newPhoto);
-                try {
-                    // déplacement du fichier vers le répertoire de destination sur le serveur
-                    $produitFile->move(
-                        $this->getParameter('photo_directory'),
-                        $newPhoto
-                    );
-                } catch (FileException $e) {
-                    // gestion de l'erreur si le déplacement ne s'est pas effectué
-                }
-            }
+            //  $produitFile = $form['photo2']->setPhoto();
+            // if ($produitFile) {
+            //     // renommage du fichier
+            //     // nom du fichier + extension
+            //     $newPhoto = $produit . '.' . $produitFile->guessExtension();
+            //     // assignation de la valeur à la propriété picture à l'aide du setter
+            //     $produit->setPhoto($newPhoto);
+            //     try {
+            //         // déplacement du fichier vers le répertoire de destination sur le serveur
+            //         $produitFile->move(
+            //             $this->getParameter('photo_directory'),
+            //             $newPhoto
+            //         );
+            //     } catch (FileException $e) {
+            //         // gestion de l'erreur si le déplacement ne s'est pas effectué
+            //     }
+            // }
             $this->getDoctrine()->getManager()->flush();
             $this->addFlash(
                 'success',

@@ -3,7 +3,6 @@
 namespace App\Form;
 
 use App\Entity\Produit;
-use Symfony\Component\DomCrawler\Field\TextareaFormField;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -26,7 +25,7 @@ class ProduitType extends AbstractType
             ->add('reference', TextType::class, [
                 'attr' => ['placeholder' => 'Reference du produit'], 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\_\-\s]+$/',
+                        'pattern' => "/^[a-zA-Z0-9_]*$/",
                         'message' => 'Caratère(s) non valide(s)'
                     ]),
                     'help' => 'Vous devez rentrer la reference du produit ici',
@@ -36,7 +35,7 @@ class ProduitType extends AbstractType
             ->add('libelle', TextType::class, [
                 'attr' => ['placeholder' => 'Libelle du produit'], 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\_\-\s]+$/',
+                        'pattern' => "/^[a-zA-Z0-9_]*$/",
                         'message' => 'Caratère(s) non valide(s)'
                     ]),
                     'help' => 'Vous devez rentrer le libelle du produit ici',
@@ -45,7 +44,7 @@ class ProduitType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => ['placeholder' => 'Description du produit'], 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\_\-\s]+$/',
+                        'pattern' => '/^[a-zA-Z0-9_]*$/',
                         'message' => 'Caratère(s) non valide(s)'
                     ]),
                     'help' => 'Vous devez rentrer la description du produit ici',
@@ -72,7 +71,7 @@ class ProduitType extends AbstractType
             ->add('couleur', TextType::class, [
                 'attr' => ['placeholder' => 'Couleur du produit'], 'constraints' => [
                     new Regex([
-                        'pattern' => '/^[A-Za-zéèàçâêûîôäëüïö\_\-\s]+$/',
+                        'pattern' => "/^[a-zA-Z0-9_]*$/",
                         'message' => 'Caratère(s) non valide(s)'
                     ]),
                     'help' => 'Vous devez rentrer la couleur du produit ici',

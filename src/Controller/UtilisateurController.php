@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * @Route("/utilisateur")
@@ -65,12 +66,14 @@ class UtilisateurController extends AbstractController
     /**
      * @Route("/{id}/edit", name="utilisateur_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Utilisateur $utilisateur): Response
+    public function edit(Request $request, Utilisateur $utilisateur, UserPasswordHasherInterface $Hasher): Response
     {
         $form = $this->createForm(UtilisateurType::class, $utilisateur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $hash = $Hasher->hashPassword($utilisateur, $utilisateur->getMdp());
+            $utilisateur->setMdp($hash);
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('utilisateur_index', [], Response::HTTP_SEE_OTHER);
